@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
@@ -21,30 +21,33 @@ const styles = theme => ({
   }
 })
 
-class App extends Component {
-  constructor(props) {
-    super(props)
-    this.classes = props.classes
+const App = ({classes}) => {
+  const [groupSize, setGroupSize] = useState(3)
+
+  function handleGroupSizeChange(event) {
+    setGroupSize(event.target.value)
   }
-  render() {
-    return (
-      <>
-        <CssBaseline />
-        <TopBar />
-        <div className={this.classes.layout}>
-          <GroupSizeSelector />
-          <Grid
-            container
-            direction="row"
-            justify="center"
-            alignItems="center"
-          >
-            <Isomorph />
-          </Grid>
-        </div>
-      </>
-    );
-  }
+
+  return (
+    <>
+      <CssBaseline />
+      <TopBar />
+      <div className={classes.layout}>
+        <GroupSizeSelector
+          groupSize={groupSize}
+          handleGroupSizeChange={handleGroupSizeChange}
+        />
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+        >
+          <Isomorph />
+        </Grid>
+      </div>
+    </>
+  );
 }
 
 export default withStyles(styles)(App);
