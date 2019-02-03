@@ -1,15 +1,34 @@
 import React from 'react';
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import { withStyles } from '@material-ui/core/styles'
 
-const TopBar = () => {
+const styles = theme => ({
+  toolbarMain: {
+    backgroundColor: theme.palette.primary.light,
+    borderBottom: `1px solid ${theme.palette.grey[300]}`,
+    color: theme.palette.common.white
+  },
+  toolbarTitle: {
+    flex: 1,
+  },
+})
+
+const TopBar = ({classes}) => {
   return (
-    <header className="mdc-top-app-bar mdc-top-app-bar--prominent">
-      <div className="mdc-top-app-bar__row">
-        <section className="mdc-top-app-bar__section">
-          <span className="mdc-top-app-bar__title">Isomorfia</span>
-        </section>
-      </div>
-    </header>
+    <Toolbar className={classes.toolbarMain}>
+      <Typography
+        component="h2"
+        variant="h5"
+        color="inherit"
+        align="center"
+        noWrap
+        className={classes.toolbarTitle}
+      >
+        Isomorfia
+      </Typography>
+    </Toolbar>
   );
 };
 
-export default TopBar;
+export default withStyles(styles)(TopBar);
