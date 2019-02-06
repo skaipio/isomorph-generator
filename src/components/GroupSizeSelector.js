@@ -26,7 +26,7 @@ const GroupSizeSelector = ({classes, groupSize, handleGroupSizeChange}) => {
         <Input
           onChange={handleGroupSizeChange}
           classes={inputStyle}
-          defaultValue={groupSize}
+          value={groupSize}
           type='number'
         >
           { groupSize }

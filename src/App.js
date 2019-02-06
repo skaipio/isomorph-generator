@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { withStyles } from '@material-ui/core/styles'
-import Grid from '@material-ui/core/Grid'
 import TopBar from './components/TopBar'
 import GroupSizeSelector from './components/GroupSizeSelector'
 import Groups from './components/Groups'
@@ -27,7 +26,9 @@ const App = ({classes}) => {
 
   function handleGroupSizeChange(event) {
     const size = Number(event.target.value)
-    setGroupSize(size)
+    if (size >= 3 && size < 7) {
+      setGroupSize(size)
+    }
   }
 
   const groups = groupService.generateUniqueGroups(groupSize)
