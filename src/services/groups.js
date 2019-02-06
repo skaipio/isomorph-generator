@@ -31,7 +31,7 @@ const getPermutations = (xs) => {
   return permutations
 }
 
-const isLegalNumberForGroup = (number, currentCayleyTable, row, col) => {
+const isLegalNumberForPosition = (number, currentCayleyTable, row, col) => {
   for (let rowIndex = row - 1; rowIndex >= 0; rowIndex--) {
     if (currentCayleyTable[rowIndex][col] === number){
       return false
@@ -51,15 +51,31 @@ const deepCopy = (table) => {
   return table.map(row => row.map(n => n))
 }
 
+const satisfiesAssociativity = (table) => {
+  for (let a = 0; a < table.length; a++) {
+    for (let b = 0; b < table.length; b++) {
+      for (let c = 0; c < table.length; c++) {
+        // (a * b) * c = a * (b * c)
+        const left = table[table[a][b] - 1][c]
+        const right = table[a][table[b][c] - 1]
+        if (left !== right) return false
+      }
+    }    
+  }
+  return true
+}
+
 const generateGroupsHelper = (currentCayleyTable, row, col, tables, groupSize) => {
   if (row >= groupSize || col >= groupSize) {
-    tables.push(currentCayleyTable)
+    if (satisfiesAssociativity(currentCayleyTable)) {
+      tables.push(currentCayleyTable)
+    }
     return
   }
   
   for (let index = 0; index < groupSize; index++) {
     const number = index + 1
-    const isLegalNumber = isLegalNumberForGroup(number, currentCayleyTable, row, col)
+    const isLegalNumber = isLegalNumberForPosition(number, currentCayleyTable, row, col)
     if (isLegalNumber) {
       const cayleyTable = deepCopy(currentCayleyTable)
       cayleyTable[row][col] = number
@@ -154,9 +170,7 @@ const getUniqueGroups = (combinations) => {
 
 /**
  * Generates groups for given groupSize with natural numbers as symbols.
- * TODO: Does not yet check if the groups satisfy associativity.
- * 
- * @param {*} groupSize Size of group to generate isomorphs for
+ * @param {*} groupSize Size of group to generate groups for
  */
 const generateUniqueGroups = (groupSize) => {
   const groups = generateGroups(groupSize)
