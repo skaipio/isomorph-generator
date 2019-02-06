@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid'
 import TopBar from './components/TopBar'
 import GroupSizeSelector from './components/GroupSizeSelector'
 import Isomorph from './components/Isomorph/'
-import isomorphService from './services/isomorphs'
+import groupService from './services/groups'
 import './App.css';
 
 // Not very SRP, but this is a small application
@@ -23,15 +23,15 @@ const styles = theme => ({
 })
 
 const App = ({classes}) => {
-  const [groupSize, setGroupSize] = useState(3)
+  const [groupSize, setGroupSize] = useState(4)
 
   function handleGroupSizeChange(event) {
     setGroupSize(event.target.value)
   }
 
-  const isomorphs = isomorphService.generateIsomorphs(groupSize)
+  const groups = groupService.generateUniqueGroups(groupSize)
 
-  console.log(isomorphs)
+  console.log(groups)
 
   return (
     <>
