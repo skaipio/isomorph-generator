@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import TopBar from './components/TopBar'
 import GroupSizeSelector from './components/GroupSizeSelector'
-import Isomorph from './components/Isomorph/'
+import Groups from './components/Groups'
 import groupService from './services/groups'
 import './App.css';
 
@@ -43,14 +43,7 @@ const App = ({classes}) => {
           groupSize={groupSize}
           handleGroupSizeChange={handleGroupSizeChange}
         />
-        <Grid
-          container
-          direction="row"
-          justify="center"
-          alignItems="center"
-        >
-          <Isomorph />
-        </Grid>
+        <Groups groups={groups} />
       </div>
     </>
   );

@@ -3,10 +3,9 @@ import { withStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card';
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
-import TableHead from '@material-ui/core/TableHead'
 import TableCell from '@material-ui/core/TableCell'
-import HeaderRow from './HeaderRow'
-import NonHeaderRow from './NonHeaderRow'
+import { TableRow } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid'
 
 const styles = theme => ({
   isomorphTable: {
@@ -22,8 +21,8 @@ const styles = theme => ({
   }
 })
 
-const Isomorph = ({classes}) => {
-  const tableCells = (classNames) => [1,2,3].map(n =>
+const Isomorph = ({classes, group}) => {
+  const tableCells = (classNames, row) => row.map(n =>
     <TableCell
       align='center'
       className={classNames.join(' ')}
@@ -32,27 +31,24 @@ const Isomorph = ({classes}) => {
       {n}
     </TableCell>)
 
-  const nonHeaderRows = () => [1,2,3].map(n =>
-    <NonHeaderRow
-      key={n}
-      classes={classes}
-      firstCellText={n}
-    />
+  const rows = () => group.map((row, i) =>
+    <TableRow key={i}>
+      {tableCells([classes.isomorphCell], row)}
+    </TableRow>
   )
 
   return (
-    <Card raised={true}>
-      <Table
-        className={classes.isomorphTable}
-        padding='dense'>
-        <TableHead>
-          <HeaderRow classes={classes} tableCells={tableCells} />
-        </TableHead>
-        <TableBody>
-          { nonHeaderRows() }
-        </TableBody>
-      </Table>
-    </Card>
+    <Grid item>
+      <Card raised={true}>
+        <Table
+          className={classes.isomorphTable}
+          padding='dense'>
+          <TableBody>
+            { rows() }
+          </TableBody>
+        </Table>
+      </Card>
+    </Grid>
   );
 };
 
