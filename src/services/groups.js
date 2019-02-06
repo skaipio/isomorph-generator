@@ -65,6 +65,15 @@ const satisfiesAssociativity = (table) => {
   return true
 }
 
+/**
+ * This really needs some tuning. It takes 99.9% of the processing time.
+ * TODO: Need to eliminate unnecessary branching.
+ * @param {*} currentCayleyTable 
+ * @param {*} row 
+ * @param {*} col 
+ * @param {*} tables 
+ * @param {*} groupSize 
+ */
 const generateGroupsHelper = (currentCayleyTable, row, col, tables, groupSize) => {
   if (row >= groupSize || col >= groupSize) {
     if (satisfiesAssociativity(currentCayleyTable)) {

@@ -23,10 +23,12 @@ const styles = theme => ({
 
 const App = ({classes}) => {
   const [groupSize, setGroupSize] = useState(4)
+  const lowerLimit = 3
+  const upperLimit = 6
 
   function handleGroupSizeChange(event) {
     const size = Number(event.target.value)
-    if (size >= 3 && size < 7) {
+    if (size >= lowerLimit && size <= upperLimit) {
       setGroupSize(size)
     }
   }
