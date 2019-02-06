@@ -26,7 +26,8 @@ const App = ({classes}) => {
   const [groupSize, setGroupSize] = useState(4)
 
   function handleGroupSizeChange(event) {
-    setGroupSize(event.target.value)
+    const size = Number(event.target.value)
+    setGroupSize(size)
   }
 
   const groups = groupService.generateUniqueGroups(groupSize)
